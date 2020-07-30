@@ -1,5 +1,5 @@
 # Build-IBM-Watson-Assistant
-in this repo i build IBM Watson Assitant that are enabled to answer for working hours questions in different regions.
+in this repo i build IBM Watson Assitant that are enabled to answer about working hours questions for different regions.
 
 intents:
 
