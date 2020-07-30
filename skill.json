@@ -1,0 +1,412 @@
+{
+  "intents": [
+    {
+      "intent": "thank_you",
+      "examples": [
+        {
+          "text": "thanks"
+        },
+        {
+          "text": "thx"
+        },
+        {
+          "text": "thank you"
+        },
+        {
+          "text": "cheers"
+        },
+        {
+          "text": "appreciate it"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "good_byes",
+      "examples": [
+        {
+          "text": "talk to you soon"
+        },
+        {
+          "text": "c ya"
+        },
+        {
+          "text": "good bye"
+        },
+        {
+          "text": "see you"
+        },
+        {
+          "text": "bye"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Customer_Care_Store_Hours",
+      "examples": [
+        {
+          "text": "Is the branch open now?"
+        },
+        {
+          "text": "How long are you open?"
+        },
+        {
+          "text": "How early do you open?"
+        },
+        {
+          "text": "Does the store in the city center opens till 8pm on weekends?"
+        },
+        {
+          "text": "Can you tell me how late the stores are open till?"
+        },
+        {
+          "text": "At what hour can I swing by?"
+        },
+        {
+          "text": "Are you open on sundays, and if so what are the hours?"
+        },
+        {
+          "text": "What are ur opening hours?"
+        },
+        {
+          "text": "Are you open during thanksgiving?"
+        },
+        {
+          "text": "Are the stores open early?"
+        },
+        {
+          "text": "Are you open on bank holidays?"
+        },
+        {
+          "text": "What time is your store open on saturday?"
+        },
+        {
+          "text": "What time does the central manchester store shut on a saturday?"
+        },
+        {
+          "text": "What time do stores close?"
+        },
+        {
+          "text": "What time are you closing today?"
+        },
+        {
+          "text": "What is the opening time for the washington store?"
+        },
+        {
+          "text": "What are your hous?"
+        },
+        {
+          "text": "What are the saturday opening times for the local store?"
+        },
+        {
+          "text": "What are the hours of operation?"
+        },
+        {
+          "text": "What are the business hours of the store nearest to me?"
+        }
+      ],
+      "description": "Find business hours."
+    },
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Whats app"
+        },
+        {
+          "text": "hey"
+        },
+        {
+          "text": "hola"
+        },
+        {
+          "text": "Hi"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-date",
+      "values": []
+    },
+    {
+      "entity": "location",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "New york",
+          "synonyms": [
+            "york",
+            "ny",
+            "nyc",
+            "newyork"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "California",
+          "synonyms": [
+            "calif",
+            "ca"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    },
+    "from-sample": true
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "No location",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Sorry, our servers is not available in the region"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1596108845651",
+      "conditions": "true",
+      "dialog_node": "node_9_1596109078963",
+      "previous_sibling": "node_9_1596109734660"
+    },
+    {
+      "type": "standard",
+      "title": "California",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Our working hours in California server is from 8:00 AM to 5:00 PM"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1596108845651",
+      "conditions": "@location:California",
+      "dialog_node": "node_9_1596109734660",
+      "previous_sibling": "node_8_1596108881825"
+    },
+    {
+      "type": "standard",
+      "title": "Location",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Our working hours in New York server is from 8:00 AM to 9:00 PM"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1596108845651",
+      "conditions": "@location:(New york)",
+      "dialog_node": "node_8_1596108881825"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_7_1596110180875",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Thank You",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "you're welcome"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#thank_you",
+      "dialog_node": "node_7_1596110180875",
+      "previous_sibling": "node_1_1596110117716"
+    },
+    {
+      "type": "standard",
+      "title": "Good Bye",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "bye"
+              },
+              {
+                "text": "see you"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#good_byes",
+      "dialog_node": "node_1_1596110117716",
+      "previous_sibling": "node_8_1596108845651"
+    },
+    {
+      "type": "standard",
+      "title": "Working hours",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "what is your region?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_8_1596108881825"
+      },
+      "conditions": "#Customer_Care_Store_Hours",
+      "dialog_node": "node_8_1596108845651",
+      "previous_sibling": "node_5_1596108725978"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi there!"
+              },
+              {
+                "text": "Hey"
+              },
+              {
+                "text": "Hello "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#greetings",
+      "dialog_node": "node_5_1596108725978",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              },
+              {
+                "text": "You in Disney land give us you wish"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
